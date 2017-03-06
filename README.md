@@ -1,1 +1,2 @@
 # pi-temperature-logger
+test
