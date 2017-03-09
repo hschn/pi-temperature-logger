@@ -48,10 +48,7 @@ humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 # guarantee the timing of calls to read the sensor).
 # If this happens try again!
 if humidity is not None and temperature is not None:
-    print('-----------------')
     print('Sensor:', sensor, 'Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity))
-    print('-----------------')
-    print('connecting to DB')
 
     con = None 
 
@@ -61,7 +58,6 @@ if humidity is not None and temperature is not None:
        with con:
 
 	cur = con.cursor()    
-	print "INSERT data into tbl"
    	cur.execute("INSERT INTO SENSORDATA VALUES (NULL,?,?,?,datetime('now'))",(sensor,temperature,humidity))    
         print "INSERT successful"
     
