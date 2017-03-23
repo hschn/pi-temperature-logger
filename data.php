@@ -7,36 +7,20 @@
 $db = new SQLite3('/var/www/html/phpliteadmin/templog-db');
 
 $result = $db->query('SELECT * FROM "SENSORDATA" WHERE 1');
+//$result = $db->query('SELECT * FROM "SENSORDATA" WHERE TIMESTAMP >= datetime('now','-2 days')');
 
-$row = array();
-
-$i = 0;
+//$row = array();
 
 while($row = $result->fetchArray(SQLITE3_ASSOC)){
 
-/*   if(!isset($res['ID'])) continue;
-   $row[$i]['ID'] = $res['ID'];
-   echo "<br>";
-   $row[$i]['sensor'] = $res['SENSOR'];
-   $row[$i]['temp'] = $res['TEMPERATURE'];
-   $row[$i]['humi'] = $res['HUMIDITY'];
-   $row[$i]['time'] = $res['TIMESTAMP'];
-
-   $i++;
-   print_r($row);
-*/
 $data[] = array(
-'ID' => $row['ID'],
-'SENSOR' => $row['SENSOR'],
 'TEMPERATURE' => $row['TEMPERATURE'],
-'HUMIDITY' => $row['HUMIDITY'],
 'TIMESTAMP' => $row['TIMESTAMP']
 );
 
 }
 
-echo json_encode($data);
-//print_r($row);
+//echo json_encode($data);
 
 ?>
 
@@ -48,20 +32,14 @@ new Morris.Line({
   element: 'myfirstchart',
   // Chart data records -- each entry in this array corresponds to a point on
   // the chart.
-  data: [
-    { year: '2008', value: 20 },
-    { year: '2009', value: 10 },
-    { year: '2010', value: 5 },
-    { year: '2011', value: 5 },
-    { year: '2012', value: 20 }
-  ],
+  data: <?php echo json_encode($data);?>,
   // The name of the data record attribute that contains x-values.
-  xkey: 'year',
+  xkey: 'TIMESTAMP',
   // A list of names of data record attributes that contain y-values.
-  ykeys: ['value'],
+  ykeys: ['TEMPERATURE'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: ['Value']
+  labels: ['Temperatur']
 });
 </script>
 
