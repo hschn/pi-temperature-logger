@@ -15,7 +15,8 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)){
 
 $data[] = array(
 'TEMPERATURE' => $row['TEMPERATURE'],
-'TIMESTAMP' => $row['TIMESTAMP']
+'TIMESTAMP' => $row['TIMESTAMP'],
+'HUMIDITY' => $row['HUMIDITY']
 );
 
 }
@@ -36,10 +37,10 @@ new Morris.Line({
   // The name of the data record attribute that contains x-values.
   xkey: 'TIMESTAMP',
   // A list of names of data record attributes that contain y-values.
-  ykeys: ['TEMPERATURE'],
+  ykeys: ['TEMPERATURE','HUMIDITY'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: ['Temperatur']
+  labels: ['Temperatur','Luftfeuchtigkeit']
 });
 </script>
 
